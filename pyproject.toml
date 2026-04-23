@@ -1,0 +1,192 @@
+# ========================================
+# 构建系统配置
+# ========================================
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+# ========================================
+# 项目元数据
+# ========================================
+[project]
+name = "agent-growth"
+version = "4.1.2"
+description = "AI Agent 成长评估器 - 基于 EIE 理论体系"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Aztoplay", email = "aztoplay@openclaw.ai"}
+]
+maintainers = [
+    {name = "Aztoplay", email = "aztoplay@openclaw.ai"}
+]
+keywords = [
+    "ai",
+    "agent",
+    "evaluation",
+    "growth",
+    "eie",
+    "meq",
+    "vl",
+    "machine-learning",
+    "assessment"
+]
+classifiers = [
+    # Development Status
+    "Development Status :: 4 - Beta",
+    
+    # Intended Audience
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    
+    # Topic
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Quality Assurance",
+    
+    # License
+    "License :: OSI Approved :: MIT License",
+    
+    # Programming Language
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    
+    # Operating System
+    "Operating System :: OS Independent",
+    
+    # Typing
+    "Typing :: Typed",
+]
+requires-python = ">=3.8"
+
+# ========================================
+# 核心依赖
+# ========================================
+dependencies = [
+    "pyyaml>=6.0",
+    "typing-extensions>=4.0.0",
+]
+
+# ========================================
+# 可选依赖（开发、测试、文档）
+# ========================================
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "mypy>=1.0.0",
+    "bandit>=1.7.0",
+]
+test = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-mock>=3.10.0",
+]
+docs = [
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "myst-parser>=0.18.0",
+]
+all = [
+    "agent-growth[dev,test,docs]",
+]
+
+# ========================================
+# 入口点（CLI 命令）
+# ========================================
+[project.scripts]
+agent-growth = "scripts.evaluator:main"
+agent-growth-auto = "scripts.auto_detect:main"
+agent-growth-task = "scripts.eie_task_assistant:main"
+
+# ========================================
+# 项目 URL
+# ========================================
+[project.urls]
+Homepage = "https://github.com/openclaw/agent-growth"
+Documentation = "https://github.com/openclaw/agent-growth#readme"
+Repository = "https://github.com/openclaw/agent-growth"
+"Bug Tracker" = "https://github.com/openclaw/agent-growth/issues"
+"Source Code" = "https://github.com/openclaw/agent-growth"
+Discussions = "https://github.com/openclaw/agent-growth/discussions"
+Changelog = "https://github.com/openclaw/agent-growth/blob/main/CHANGELOG.md"
+
+# ========================================
+# Setuptools 配置
+# ========================================
+[tool.setuptools]
+packages = []
+
+[tool.setuptools.package-data]
+"scripts" = ["*.json", "*.yaml", "*.yml"]
+
+# ========================================
+# Black 代码格式化配置
+# ========================================
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # 排除目录
+  \.eggs
+  | \.git
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# ========================================
+# Pytest 测试配置
+# ========================================
+[tool.pytest.ini_options]
+testpaths = ["scripts"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--tb=short",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+# ========================================
+# Flake8 代码检查配置
+# ========================================
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    ".eggs",
+    "*.egg-info",
+]
+
+# ========================================
+# MyPy 类型检查配置
+# ========================================
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false

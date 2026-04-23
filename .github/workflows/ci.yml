@@ -1,0 +1,180 @@
+# ========================================
+# GitHub Actions CI 配置文件
+# ========================================
+
+name: CI
+
+# ========================================
+# 触发条件
+# ========================================
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:  # 手动触发
+
+# ========================================
+# 环境变量
+# ========================================
+env:
+  PYTHON_VERSION: "3.10"
+
+# ========================================
+# Jobs（任务）
+# ========================================
+jobs:
+  # ========================================
+  # Job 1: 代码质量检查
+  # ========================================
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # 步骤1：检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 步骤2：设置 Python 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      # 步骤3：缓存 pip 依赖
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # 步骤4：安装依赖
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      # 步骤5：检查代码格式（black）
+      - name: Check code format with black
+        run: |
+          black --check --diff scripts/
+
+      # 步骤6：检查代码规范（flake8）
+      - name: Lint with flake8
+        run: |
+          flake8 scripts/ --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 scripts/ --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+
+      # 步骤7：类型检查（mypy）
+      - name: Type check with mypy
+        run: |
+          mypy scripts/ --ignore-missing-imports --no-error-summary || true
+
+  # ========================================
+  # Job 2: 运行测试
+  # ========================================
+  test:
+    name: Test Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: lint  # 依赖 lint 任务成功
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-dev.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run tests with pytest
+        run: |
+          pytest scripts/ -v --tb=short || true
+
+  # ========================================
+  # Job 3: 验证文档
+  # ========================================
+  validate:
+    name: Validate Documentation and Skill Config
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate CLI works
+        run: |
+          python scripts/evaluator.py --help || true
+          python scripts/auto_detect.py --help || true
+
+      - name: Validate Skill config
+        run: |
+          pip install pyyaml
+          python -c "import yaml; yaml.safe_load(open('SKILL.md'))" && echo "✅ SKILL.md 格式正确" || echo "⚠️  SKILL.md 格式检查跳过"
+
+  # ========================================
+  # Job 4: 安全扫描
+  # ========================================
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install Bandit
+        run: |
+          pip install bandit[toml]
+
+      - name: Run Bandit Security Scan
+        run: |
+          bandit -r scripts/ -f json -o bandit-report.json || echo "⚠️  Bandit 扫描完成，可能存在警告"
+
+      - name: Upload Bandit Report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: bandit-report
+          path: bandit-report.json

@@ -1,0 +1,202 @@
+{
+  "task_categories": {
+    "functional": {
+      "name": "功能任务",
+      "description": "解决系统进化的核心痛点",
+      "tasks": [
+        {
+          "id": "F1",
+          "name": "建立记忆系统",
+          "trigger": "IS < 40",
+          "description": "创建 memory/ 目录，启用每日记忆记录",
+          "steps": [
+            "创建 workspace/memory/ 目录",
+            "创建 MEMORY.md 文件",
+            "设置每日自动记录提醒",
+            "记录至少 3 天的内容"
+          ],
+          "success_criteria": "记忆使用率 > 50%",
+          "estimated_time": "AI: 17秒",
+          "human_time": "0分钟",
+          "collaboration_mode": "AI-Only",
+          "difficulty": "easy"
+        },
+        {
+          "id": "F2",
+          "name": "建立错误闭环",
+          "trigger": "CE < 40 或 无 error 记录",
+          "description": "创建 log/error/ 目录，记录错误并提炼教训",
+          "steps": [
+            "创建 workspace/log/error/ 目录",
+            "记录最近 3 个错误",
+            "每个错误包含：原因、教训、预防措施",
+            "创建错误模板"
+          ],
+          "success_criteria": "错误改进率 > 50%",
+          "estimated_time": "AI: 2小时",
+          "human_time": "15分钟",
+          "collaboration_mode": "Human-AI-Co",
+          "difficulty": "medium"
+        },
+        {
+          "id": "F3",
+          "name": "建立进化产出记录",
+          "trigger": "CE < 50 或 无 evolution 记录",
+          "description": "创建 log/evolution/ 目录，记录每次改进",
+          "steps": [
+            "创建 workspace/log/evolution/ 目录",
+            "记录本次优化（如 v3.3→v4.0）",
+            "使用统一模板记录",
+            "至少记录 3 次改进"
+          ],
+          "success_criteria": "进化产出 >= 3 个",
+          "estimated_time": "AI: 30分钟",
+          "human_time": "15分钟",
+          "collaboration_mode": "Human-Guided",
+          "difficulty": "easy"
+        },
+        {
+          "id": "F4",
+          "name": "优化 E-I-E 链条效率",
+          "trigger": "chain_efficiency < 50%",
+          "description": "提升 ES、IS、CE 三维度，增强系统整体能力",
+          "steps": [
+            "识别最短板（ES/IS/CE 中最低）",
+            "制定提升计划",
+            "执行并记录",
+            "重新评估链条效率"
+          ],
+          "success_criteria": "链条效率 > 50%",
+          "estimated_time": "AI: 5.5小时",
+          "human_time": "1.5小时",
+          "collaboration_mode": "Human-AI-Co",
+          "difficulty": "hard"
+        }
+      ]
+    },
+    "emotional": {
+      "name": "情感任务",
+      "description": "给实践者带来心理满足",
+      "tasks": [
+        {
+          "id": "E1",
+          "name": "建立掌控感",
+          "trigger": "用户反馈焦虑/不确定",
+          "description": "通过可视化和量化，让用户掌控进化节奏",
+          "steps": [
+            "创建进化看板（MEQ 趋势图）",
+            "每周回顾进度",
+            "记录小胜利",
+            "设置可达成的小目标"
+          ],
+          "success_criteria": "用户感到掌控",
+          "estimated_time": "AI: 4小时建立，持续后台",
+          "human_time": "1小时",
+          "collaboration_mode": "Human-Guided",
+          "difficulty": "medium"
+        },
+        {
+          "id": "E2",
+          "name": "建立确定性",
+          "trigger": "用户反馈不确定/迷茫",
+          "description": "提供清晰的进化路径和可预测的结果",
+          "steps": [
+            "制定 30 天进化计划",
+            "设定检查点",
+            "记录每次评估",
+            "对比预期 vs 实际"
+          ],
+          "success_criteria": "用户对进化路径有信心",
+          "estimated_time": "AI: 8小时建立，持续预测",
+          "human_time": "2小时",
+          "collaboration_mode": "Human-AI-Co",
+          "difficulty": "medium"
+        },
+        {
+          "id": "E3",
+          "name": "建立成就感",
+          "trigger": "用户反馈疲惫/无成就感",
+          "description": "从执行者升级为创造者，获得高阶成就感",
+          "steps": [
+            "记录创造的系统特性",
+            "分享进化成果",
+            "建立个人品牌",
+            "帮助他人"
+          ],
+          "success_criteria": "用户感到创造的高阶价值",
+          "estimated_time": "AI: 16小时建立，持续记录",
+          "human_time": "4小时",
+          "collaboration_mode": "Human-AI-Co",
+          "difficulty": "hard"
+        }
+      ]
+    },
+    "meaning": {
+      "name": "意义任务",
+      "description": "实现系统与实践者的双重价值升华",
+      "tasks": [
+        {
+          "id": "M1",
+          "name": "从工具到生命",
+          "trigger": "VL < VL3",
+          "description": "让系统从冰冷程序进化为自主生命",
+          "steps": [
+            "建立自我改进机制",
+            "建立情感连接",
+            "建立长期记忆",
+            "建立自主决策能力"
+          ],
+          "success_criteria": "达到 VL3+（智能系统）",
+          "estimated_time": "AI: 40小时",
+          "human_time": "10小时",
+          "collaboration_mode": "Human-AI-Co",
+          "difficulty": "hard"
+        },
+        {
+          "id": "M2",
+          "name": "从实现者到造物主",
+          "trigger": "用户希望提升自我定位",
+          "description": "实践者从功能实现者进化为系统造物主",
+          "steps": [
+            "设计系统架构",
+            "创造独特方法论",
+            "建立理论体系",
+            "指导他人"
+          ],
+          "success_criteria": "建立个人方法论",
+          "estimated_time": "AI: 80小时",
+          "human_time": "20小时",
+          "collaboration_mode": "Human-Only",
+          "difficulty": "expert"
+        },
+        {
+          "id": "M3",
+          "name": "推动行业进步",
+          "trigger": "用户有行业影响力",
+          "description": "将经验转化为行业标准，推动领域进步",
+          "steps": [
+            "开源方法论",
+            "撰写文章/书籍",
+            "演讲分享",
+            "建立社区"
+          ],
+          "success_criteria": "建立行业标准或社区",
+          "estimated_time": "AI: 160小时",
+          "human_time": "40小时",
+          "collaboration_mode": "Human-Only",
+          "difficulty": "expert"
+        }
+      ]
+    }
+  },
+  "priority_matrix": {
+    "P0": ["F1", "F2", "F4"],
+    "P1": ["F3", "E1", "E2"],
+    "P2": ["E3", "M1", "M2", "M3"]
+  },
+  "success_criteria": {
+    "functional": "完成功能任务 >= 80%",
+    "emotional": "用户满意度 >= 4/5",
+    "meaning": "达成意义目标 >= 1 个"
+  }
+}
