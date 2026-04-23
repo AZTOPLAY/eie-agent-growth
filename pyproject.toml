@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 # 项目元数据
 # ========================================
 [project]
-name = "agent-growth"
+name = "eie-agent-growth"
 version = "4.1.2"
 description = "AI Agent 成长评估器 - 基于 EIE 理论体系"
 readme = "README.md"

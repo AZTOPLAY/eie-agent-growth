@@ -1,14 +1,14 @@
-# EIE AgentGrowth v4.1.1 完整介绍
+# EIE eie-agent-growth v4.1.1 完整介绍
 
 **更新时间**：2026-04-23
 **原名**：EIE Agent 评估器
-**新名**：EIE AgentGrowth
+**新名**：EIE eie-agent-growth
 
 ---
 
 ## 🎯 核心功能
 
-> **EIE AgentGrowth = EIE + Agent + Growth（能量-信息-进化-智能体-成长）**
+> **EIE eie-agent-growth = EIE + Agent + Growth（能量-信息-进化-智能体-成长）**
 >
 > 「5秒钟知道你的Agent从'萌新'到'大神'的成长进度」
 
@@ -104,7 +104,7 @@ MEQ = 47.6 | VL3 · 智能系统
 ### Step 3：输出MEQ结果
 ```
 ╔══════════════════════════════════════════════════════════╗
-║                    🎯 EIE AgentGrowth 成长评估结果      ║
+║                    🎯 EIE eie-agent-growth 成长评估结果      ║
 ╠══════════════════════════════════════════════════════════╣
 ║                                                            ║
 ║   ┌──────────────────────────────────────────────────┐     ║
@@ -158,7 +158,7 @@ python scripts/agent_growth_task_assistant.py --assess \
 
 ```
 ╔══════════════════════════════════════════════════════════╗
-║   🎯 EIE AgentGrowth 任务助手报告（JTBD 视角 v4.1）    ║
+║   🎯 EIE eie-agent-growth 任务助手报告（JTBD 视角 v4.1）    ║
 ╠══════════════════════════════════════════════════════════╣
 ║   MEQ = 47.6 | VL3 · 智能系统                   ║
 ║   E-I-E 链条效率：41.8%                            ║
@@ -266,5 +266,5 @@ python scripts/agent_growth_task_assistant.py --assess --workspace .
 
 **版本**：v4.1.1  
 **作者**：Aztoplay  
-**名字**：EIE AgentGrowth  
+**名字**：EIE eie-agent-growth  
 **安装位置**：`skills/agent-growth/`
